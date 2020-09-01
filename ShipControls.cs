@@ -8,6 +8,8 @@ public class ShipControls : MonoBehaviour
     public float VelocitatNau = 5f;     //La velocitat a la que pot avançar la nau
     public float VelocitatGir = 3f;     //La velocitat a la que la nau s'orientarà al cursor
     public GameObject SmokeEffect;
+    public GameObject Bullet;
+    public float bulletSpeed = 5f;
 
     Rigidbody2D Rb;
 
@@ -43,5 +45,15 @@ public class ShipControls : MonoBehaviour
         {
             SmokeEffect.GetComponent<ParticleSystem>().Stop();
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            GameObject g = Instantiate(Bullet, transform.position, Quaternion.identity);
+            g.GetComponent<Rigidbody2D>().gravityScale = 0f;
+            ConstantForce2D cf = g.GetComponent<ConstantForce2D>();
+
+            cf.force = RelativeDir * bulletSpeed;
+        }
+
     }
 }
